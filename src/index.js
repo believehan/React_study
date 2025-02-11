@@ -1,21 +1,66 @@
-
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-/*
-  <모듈에서 컴포넌트를 export 할 때 default 지정자를 포함한 경우의 import 형식
-  - 모듈의 객체 참조명에 대한 블럭{}(객체 구조분해 할당) 생략 가능.
-  단, 이는 모듈에서 객체 export 시 default 지정자를 지정한 경우만 가능.
-  또한 이경우 임포트 컴포넌트 객체명(App)을 모듈의 디폴트 함수나 클래스명과
-  다르게 적용하거나 모듈에서의 export 컴포넌트명(함수명) 생략해도 무방. (권장되지는 않음)
-*/
-import App from './App';
-import App2 from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
-  <>
-  <App />
-  <App2 />
-  </>
-)
+/* ========================================================================================================= */
+
+function TestReact(props) {
+    return <h1>테스트 {props.value1}</h1>;      // JSX 형식.
+}
+
+root.render( 
+  // 함수 호출과 동일하지만 객체형태로 묶어서 전달
+    <TestReact value1='1' />     // 컴포넌트에 임의 프로퍼티와 값을 지정함으로써 객체 형태로 전달되고
+    //                           // 이를 매개변수(props)의 참조를 통해 컴포넌트의 프로퍼티를 필드 형식
+    //                           // 으로 JSX 표현식 내에서 참조 가능.
+);
+
+/* ========================================================================================================= */
+
+/*
+    다중 JSX 식을 구현하는 경우 소괄호로 묶어서 반환해야 하며 반드시
+    하나의 부모 컨테이너 태그가 있어야함.
+    하기의 경우 부모가 2개 이므로 컴파일 에러.
+*/
+// function TestReact(props) {
+//     return (
+//         <h1>테스트 {props.value1}</h1 >
+//         <h2>테스트 {props.value2}</h2 >
+//     );
+// }
+
+// root.render(
+//     <TestReact value1='1' value2='2' />
+// );
+
+/* ========================================================================================================= */
+
+// function TestReact(props) {
+//     return (
+//         <div>
+//             <h1>테스트 {props.value1}</h1 >
+//             <h2>테스트 {props.value2}</h2 >
+//         </div>
+//     );
+// }
+
+// root.render(
+//     <TestReact value1='1' value2='2' />
+// );
+//단점: 값을 동적으로 구성하지 못한다
+/* ========================================================================================================= */
+// props 의 Destructuring assignment(구조분해할당)
+
+// function TestReact({value1, value2}) {
+//     return (
+//         <div>
+//             <h1>테스트 {value1}</h1 >
+//             <h2>테스트 {value2}</h2 >
+//         </div>
+//     );
+// }
+
+// root.render(
+//     <TestReact value1='1' value2='2' />
+// );
