@@ -1,19 +1,20 @@
-import { Event1, Event2 } from "./subModule/Event1";
+import Counter from "./subModule/Counter";
 
 function App() {
-  const style = {
-    backgroundColor: 'red',
-    color: 'white',
-    fontSize: '3em',
-    textDecoration: 'none',
-  };
+    const spanStyle = {
+        display: 'inline-block',
+        margin: '20px 20px',
+        color: 'blue',
+        fontWeight: 'bold',
+        fontSize: '2em',
+    },
+        btnStyle = {
+            marginRight: '40px',
+        };
 
-  return (
-    <>
-      <Event1 style={style} />
-      <Event2 style={style} />
-    </>
-  );
+    return (
+        <Counter spanStyle={spanStyle} btnStyle={btnStyle} />
+    );
 }
 
 export default App;
