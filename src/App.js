@@ -42,11 +42,11 @@ function App() {
     <div id="main_container">
       <Img src="bg1" alt='a' />
       <NationContainer>
-        <NationBox opacity = "1" value='1' />
-        <NationBox opacity = "0.5" value='2' />
-        <NationBox opacity = "0.5" value='3' />
-        <NationBox opacity = "0.5" value='4' />
-        <NationBox opacity = "0.5" value='5' />
+        <NationBox opacity="1" value='1' />
+        <NationBox value='2' />
+        <NationBox value='3' />
+        <NationBox value='4' />
+        <NationBox value='5' />
       </NationContainer>
     </div>
   );
