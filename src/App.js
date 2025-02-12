@@ -1,32 +1,27 @@
-import { useState } from 'react';
-import SetName from './subModule/SetName';
+import { useState } from "react";
+import ChangeStateValue from "./subModule/ChangeStateValue";
+import ChangeStateValue2 from './subModule/ChangeStateValue2';
 
-/* 
-    < 하위 컴포넌트에서 상위 컴포넌트로 값 전달 >
-
-- 하위 컴포넌트에서 상위 컴포넌트로 값을 전달하기 위해서는 상위 컴포넌트에서
-  정의한 함수의 참조를 하위 컴포넌트에 전달하고, 하위 컴포넌트에서는 전달받은
-  상위 컴포넌트 함수 호출을 위한 별도의 함수를 정의하여 그 내부에서 상위
-  컴포넌트로 전달할 값을 상위 컴포넌트의 함수 참조를 통해 실인수와 함께 호출
-  함으로써 상위 컴포넌트에서는 매개변수 형태로 전달된 값을 수신하고 이를
-  set~ 함수를 이용 상태값에 저장하여 활용.
-*/
 function App() {
-    const [yourName, setYourName] = useState('바보');
-
-    /* 
-        하위 컴포넌트에서 전달된 값을 매개변수 형태로 수신하기 위한 함수.        
-    */
-    function setName(transName) { // 값을 반환 받을 함수 미리 정의
-        setYourName(transName); 
-    }
-
-    return (
-        <>
-            <SetName setName={setName} /> {/* 하위 컴포넌트에 부모함수 전달 */}
-            <div>당신의 이름은 {yourName}입니다.</div>
-        </>
-    );
+  const [aSyncValue, setAsyncValue] = useState(0);
+  /* 
+    하위 컴포넌트에서 변경된 데이터를 상위와 다른 하위 컴포넌트에서 데이터
+    동기화를 맞추기 위해, 렌더링 특성을 이용하여 데이터를 조작하여 전달할
+    하위 컴포넌트에서 직접 상태값을 생성하는 것이 아닌, 상위 컴포넌트에서
+    상태값을 생성하여 해당 하위 컴포넌트에 set 변경함수의 참조만 전달하므로써,
+    해당 하위 컴포넌트에서 데이터를 직접 생성하여 상위에 전달하면 동기화
+    문제가 발생되므로, 상/하위 모든 컴포넌트가 동기화가 매칭되기 위해서는 
+    데이터를 공유 할 수 있는 상위에서 상태값을 생성하여 하위에 조작 함수의
+    참조만 전달함으로써 하우에서 상위 또는 다른 하위 컴포넌트에 동기화된
+    데이터를 전달하는 효과를 볼 수 있음.
+  */
+  return (
+    <>
+      <ChangeStateValue aSyncValue={aSyncValue} setAsyncValue={setAsyncValue} />
+      <ChangeStateValue2 aSyncValue={aSyncValue} />
+      {aSyncValue}
+    </>
+  );
 }
 
 export default App;
