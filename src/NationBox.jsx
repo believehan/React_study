@@ -1,12 +1,11 @@
-
-function NationBox({ value, opacity = '0.5' }) {
-    return <a
-        style={{ opacity }}
-        href="/"
-        className={`nationBox`}
-    >
-        {value}
-    </a>;
+export default function NationBox({ nationNum, opacity }) {
+    return (
+        <a
+            href="."
+            className={`nationBox`}
+            style={{ opacity }}
+        >
+            {nationNum}
+        </a>
+    );
 }
-
-export default NationBox;

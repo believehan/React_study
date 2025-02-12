@@ -1,10 +1,3 @@
-import './App.css';
-
-function Img(props) {
-    return <img
-        src={`${props.src}.jpg`}
-        alt={props.alt}
-    />;
+export default function Img({ src, alt }) {
+    return <img src={src} alt={alt} />;
 }
-
-export default Img;

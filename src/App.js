@@ -1,55 +1,56 @@
-/* 
-    /* 
-    < Page nation 구현 > - 태그간 종속 관계
-
-- 아래 HTML 구조와 같은 형태로 구성되도록 리액트 구현.
-
-=============================================================================
-    
-    < 조건 >
-
-1) NationBox 컴포넌트는 NationContainer 에 컴포넌트 태그간 종속 관계가 되도록 구현.
-
-2) NationBox 의 클래스 넘버링(nation1 ~ nation5)을 삭제하고 CSS 파일의 opacity 도
-   삭제하되, 이를 대체하여 컴포넌트 태그에서 직접 프로퍼티를 전달하는 방식으로 구현.
-   단, 디폴트 파라미터나 defaultProps 필드 활용.
-
-=============================================================================
-
-    < HTML 구조 >
-
-<div id="main_container">
-    <img src="./images/bg1.jpg" alt="img">
-
-    <div class="nation_container">
-        <a href="#" class="nationBox nation1">1</a>
-        <a href="#" class="nationBox nation2">2</a>
-        <a href="#" class="nationBox nation3">3</a>
-        <a href="#" class="nationBox nation4">4</a>
-        <a href="#" class="nationBox nation5">5</a>
-    </div>
-</div>
-
-*/
-
-import './App.css'
-import Img from './Img';
-import NationContainer from './NationContainer';
-import NationBox from './NationBox';
+import "./App.css"
+import Img from "./Img";
+import NationContainer from "./NationContainer";
+import NationBox from "./NationBox";
 
 function App() {
-  return (
-    <div id="main_container">
-      <Img src="bg1" alt='a' />
-      <NationContainer>
-        <NationBox opacity="1" value='1' />
-        <NationBox value='2' />
-        <NationBox value='3' />
-        <NationBox value='4' />
-        <NationBox value='5' />
-      </NationContainer>
-    </div>
-  );
+    /* 
+      배열에 JSX 로 구성된 요소들을 나열하고 이를 렌더링시 표현식블럭{}
+      내에 참조값을 전달함으로써 다중 JSX 요소를 한꺼번에 렌더링 가능.
+    */
+    let nationBox = [];
+
+    /* 
+      루프 형태의 반복적인 JSX 요소 생성시에는 각 요소를 식별할 수
+      있는 고유한 key 프로퍼티를 반드시 할당해야함에 주의.
+      반복문을 적용치 않더라도 배열에 유사한 JSX 요소를 추가하는 경우
+      에도 추적 효율을 위해 key 프로퍼티를 추가하는 것을 권장.
+  
+      JSX props 에 Template literals 지정시에는 Template literals 을
+      기본적으로 문자열 형식이 아닌 동적 표현식으로 인식하여 반드시
+      표현식 블럭{} 내에서 구현해야함에 주의.
+    */
+    for (let i = 0; i < 5; i++) {
+
+        /* 
+          JSX 표현식 블럭{} 내의 값은 기본적으로 모두 문자열 형식으로
+          인식되므로 opacity 할당시 별도의 문자열 구분자 지정 불필요.
+        */
+        // nationBox[i] = <NationBox
+        //     key={`nation${i}`}// 반복되는 요소가 들어가면 key프록스 사용하기 
+        //                       // 단, key={`{i}`} 이렇게 사용하면 안됨
+        //     nationNum={i + 1}
+        //     opacity={i !== 0 ? .5 : undefined}
+        // />;
+
+        /* 배열 내장함수(push)를 활용한 요소 추가 */
+        nationBox.push(
+            <NationBox
+                key={`nation${i}`}
+                nationNum={i + 1}
+                opacity={i !== 0 ? .5 : undefined}
+            />
+        );
+    }
+
+    return (
+        <div id="main_container">
+            <Img src="./images/bg1.jpg" alt="img" />
+            <NationContainer>
+                {nationBox}
+            </NationContainer>
+        </div>
+    );
 }
-// 모듈간 종속관계
+
 export default App;
