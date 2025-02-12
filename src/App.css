@@ -1,4 +1,45 @@
+* {
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 img {
-  width: 400px;
-  border: 10px solid red;
+  width: 500px;
+  height: 500px;
+
+  /* 
+        vertical-align 속성 미 설정시 main_container 의 높이가 맞지 않을 수 있음에 주의.
+    */
+  vertical-align: top;
+}
+
+.nation_container {
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.nationBox {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  background-color: dimgrey;
+  color: coral;
+  justify-content: center;
+  align-items: center;
+  /* opacity: 0.5; */
+  text-decoration: none;
+}
+
+.nation1 {
+  opacity: 1;
 }

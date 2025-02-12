@@ -1,31 +1,55 @@
-import './App.css';
-import bg1 from './assets/images/bg1.jpg';
-
 /* 
-  < src/assets 폴더 내 파일 구성 > - assets 은 관습적 표기
+    /* 
+    < Page nation 구현 > - 태그간 종속 관계
 
-- 이미지, 아이콘, CSS 파일, JSON 등 전역 사용 리소스 저장.
-  src/assets 폴더 내 파일들을 구성함으로써, 리액트 프로젝트 생성시 자동 포함되는
-  Webpack(번들러) 이 이미지, CSS, JavaScript 파일 등을 번들링 및 최적화.
-  이는 파일을 하나로 묶어 HTTP 요청을 줄이고 로딩 속도를 빠르게 하고 사용하지 않는
-  코드나 리소스를 제거하여 앱 크기를 최적화하는 것을 의미.
-  
-  ※ public 폴더 내 구성되는 파일들은 외부에서 직접 접근이 필요한 파일들로
-    구성함므로써, Webpack 의 대상이 되지 않음.
+- 아래 HTML 구조와 같은 형태로 구성되도록 리액트 구현.
 
-  ===============================================================================
-  
-  ※ 번들링 (Bundling)
-    - 웹 애플리케이션을 구성하는 여러 개의 모듈(JavaScript, CSS, 이미지 등)을
-      하나의 파일 또는 여러 개의 최적화된 파일로 묶는 과정.
+=============================================================================
+    
+    < 조건 >
+
+1) NationBox 컴포넌트는 NationContainer 에 컴포넌트 태그간 종속 관계가 되도록 구현.
+
+2) NationBox 의 클래스 넘버링(nation1 ~ nation5)을 삭제하고 CSS 파일의 opacity 도
+   삭제하되, 이를 대체하여 컴포넌트 태그에서 직접 프로퍼티를 전달하는 방식으로 구현.
+   단, 디폴트 파라미터나 defaultProps 필드 활용.
+
+=============================================================================
+
+    < HTML 구조 >
+
+<div id="main_container">
+    <img src="./images/bg1.jpg" alt="img">
+
+    <div class="nation_container">
+        <a href="#" class="nationBox nation1">1</a>
+        <a href="#" class="nationBox nation2">2</a>
+        <a href="#" class="nationBox nation3">3</a>
+        <a href="#" class="nationBox nation4">4</a>
+        <a href="#" class="nationBox nation5">5</a>
+    </div>
+</div>
+
 */
+
+import './App.css'
+import Img from './Img';
+import NationContainer from './NationContainer';
+import NationBox from './NationBox';
+
 function App() {
-
-    /*
-        src 폴더 내 구성된 파일을 로드하기 위해서는 반드시 위와같이
-        해당 리소스 파일을 import 해서 아래와같이 사용해야함에 주의.
-    */
-    return <img src={bg1} alt="img" />;
+  return (
+    <div id="main_container">
+      <Img src="bg1" alt='a' />
+      <NationContainer>
+        <NationBox opacity = "1" value='1' />
+        <NationBox opacity = "0.5" value='2' />
+        <NationBox opacity = "0.5" value='3' />
+        <NationBox opacity = "0.5" value='4' />
+        <NationBox opacity = "0.5" value='5' />
+      </NationContainer>
+    </div>
+  );
 }
-
+// 모듈간 종속관계
 export default App;
