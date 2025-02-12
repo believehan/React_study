@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function Counter({ spanStyle, btnStyle }) {
     const [count, setCount] = useState(0);
-
+    //   [변수,  다른 값으로 변경할 수 있는 set함수] = useState(초기값);
     // function plusCounter() {
     //     let point = 5;
 

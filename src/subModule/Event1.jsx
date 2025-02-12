@@ -1,23 +1,30 @@
-export default function Event1({ style }) {
+let test;
+
+export function Event1({ style }) {
     /* 
-        <함수 표현식과 함수선언의 차이>
+        함수 표현식은 아래와 같이 전역변수에 할당이 가능함으로써, 외부의
+        다른 컴포넌트에서도 참조 가능함을 확인가능.
 
-        -함수 선언은 호이스팅 특성으로 인한 코드설계 미스가 발생될 우려가 있고,
-        정의된 블록{} 내에서만 참조가 가능한 반면, 함수 표현식은 전역변수에 할당
-        하여 전역적으로 활용 가능한 장점으로 인해 함수 선언을 사용하지 못하는
-        상황에 대한 대응 처리가 가능.
+       ※ 리액트는 상태값(state) 의 변경에 의해 리렌더링이 발생하지만,
+       이벤트 헨들러를 사용하여 직접 DOM을 조작하는 경우에는 React의
+       상태관리와 는 별개로, 직접 DOM 요소의 스타일 변경이 가능.
     */
-    const setBg = e => {
-        /* 
-            a태그의 새로고침 이벤트 특성을 해제.
-        */
-        e.preventDefault(); // a태그를 누르면 href 를 통해 이동하거나, 창이 새로고침하여 실행
-                            //preventDefault 를 통해 이러한 동작을 막아줄 수 있습니다.
+   test = e => {
+    e.preventDefault();
+    e.target.style.backgroundColor = 'green'
+   };
 
-        /* 
-            <이벤트 처리>
-            -js 와 같이 인라인 형식으로 on ~ 으로 시작하는 이벤트 키워드명을 요소의 
-            프로퍼티로 하되, js 와 달리 ㅐㅜ
-        */
-    };
+   return (
+    <div>
+        <a href="." style={style} onClick={test}>첫 번째 요소</a>
+    </div>
+   )
+}
+
+export function Event2({style}) {
+    return (
+        <div>
+             <a href="." style={style} onClick={test}>두 번째 요소</a>
+        </div>
+    );
 }
