@@ -1,23 +1,29 @@
-import { useState } from "react";
 import ChangeStateValue from "./subModule/ChangeStateValue";
-import ChangeStateValue2 from './subModule/ChangeStateValue2';
+import ChangeStateValue2 from "./subModule/ChangeStateValue2";
+import { useState } from 'react';
 
 function App() {
   const [aSyncValue, setAsyncValue] = useState(0);
+
   /* 
-    하위 컴포넌트에서 변경된 데이터를 상위와 다른 하위 컴포넌트에서 데이터
-    동기화를 맞추기 위해, 렌더링 특성을 이용하여 데이터를 조작하여 전달할
-    하위 컴포넌트에서 직접 상태값을 생성하는 것이 아닌, 상위 컴포넌트에서
-    상태값을 생성하여 해당 하위 컴포넌트에 set 변경함수의 참조만 전달하므로써,
-    해당 하위 컴포넌트에서 데이터를 직접 생성하여 상위에 전달하면 동기화
-    문제가 발생되므로, 상/하위 모든 컴포넌트가 동기화가 매칭되기 위해서는 
-    데이터를 공유 할 수 있는 상위에서 상태값을 생성하여 하위에 조작 함수의
-    참조만 전달함으로써 하우에서 상위 또는 다른 하위 컴포넌트에 동기화된
-    데이터를 전달하는 효과를 볼 수 있음.
+      컴포넌트간 통신에서 상위에서 하위 컴포넌트에 데이터를 전달할 때에는
+      props 를 통해 참조 전달이 되고, 상위 컴포넌트에서의 상태값이 변화됨에
+      따라 하위 컴포넌트도 연동되어 리렌더링이 일어나므로 하위 컴포넌트에서는
+      별도의 동기나 비동기 변수의 선언이 불필요.
+      반면, 하위에서 상위 컴포넌트로 데이터 전달시에는 상위 컴포넌트 함수의
+      참조를 통한 호출로 매개변수 형태의 지역변수로 전달되어, 상위 컴포넌트
+      에서 이를 리렌더링 하기 위해서는 리렌더링이 수반되는 비동기 변수에
+      할당하는 작업이 반드시 필요.
+      즉, 컴포넌트간 리렌더링이 전제되는 통신을 위해서는 상위에서 하위인지
+      또는 하위에서 상위인지 방향에 따라 비동기 변수의 필요성이 가변적.
   */
+  function transValue(value) {
+    setAsyncValue(value);
+  }
+
   return (
     <>
-      <ChangeStateValue aSyncValue={aSyncValue} setAsyncValue={setAsyncValue} />
+      <ChangeStateValue transValue={transValue} />
       <ChangeStateValue2 aSyncValue={aSyncValue} />
       {aSyncValue}
     </>
