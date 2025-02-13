@@ -1,23 +1,9 @@
-
-import NationContainer from './NationContainer';
-const imgList = ['./images/bg1.jpg', './images/bg2.jpg', './images/bg3.jpg','./images/bg4.jpg'];
-const selectIdx = [];
-function clickNation() {
-
-}
+import InputOutputClient from "./subModule/InputOutputClient";
+// 값 받아서 동기화 하고 키보드엔터 이벤트 구현
 function App() {
-  return (
-    <div className="main_container">
-      <img src={imgList[selectIdx]} alt="imgBox" />
-
-      <div className='nation_container' onClick={clickNation}>
-        <NationContainer
-          imgList={imgList}
-          selectIdx={selectIdx}
-        />
-      </div>
-    </div>
-  );
-}//함수는 다지웠음 
+    return (
+        <InputOutputClient />
+    );
+}
 
 export default App;
