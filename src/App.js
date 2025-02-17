@@ -1,43 +1,24 @@
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 import reducer from './subModule/reducer';
+import Plus from './subModule/Plus';
+import Minus from './subModule/Minus';
 
-function init(initData) {
-    if (initData >= 100) {
-        return 100;
-    } else {
-        return initData;
-    }
-}
+export const RefDispatch = React.createContext();
+const initData = 0;
 
 export default function App() {
-    const inintData = 0;
-    // const inintData = 250;
+   const [state, dispatch] = useReducer(reducer, initData);
 
-    /*
-        < useReducer 의 3번째 인자 initializer >
-
-    - useReducer 의 3번째 인자인 initializer 가 생략된 경우에는
-      2번째 인자인 initializerArg 값으로 초기화가 되지만,
-      initializer 에 함수의 참조를 전달하면 콜백 호출된 값으로
-      초기화됨을 확인 가능.
-    */
-    const [state, dispatch] = useReducer(reducer, 0, () => init(inintData));
-
-    function plus() {
-        dispatch({ type: 'PLUS' });
-    }
-
-    function minus() {
-        dispatch({ type: 'MINUS' });
-    }
-
-    return (
-        <div>
-            <h1>num : {state}</h1>
-            <button onClick={plus}>+</button>
-            <button onClick={minus}>-</button>
-        </div>
-    );
+   /* 
+      상태관리를 위한 Reducer 의 dispatch 메서드의 참조를 전역 데이터 참조로 전달.
+   */
+   return (
+      <RefDispatch.Provider value={dispatch}>
+         <h1>num : {state}</h1>
+         <Plus />
+         <Minus />
+      </RefDispatch.Provider>
+   );
 }
 
 
@@ -60,26 +41,43 @@ export default function App() {
 //       },
 
 //     ]
-//   );
+//   ),
+//     { userNum, userTitle, userName } = userBord;
+
+//   function inputUserValue(e) {
+//     setUserBord({
+//       ...userBord,
+//       userNum: e.target.value,
+//     });
+//   }
+
 
 //   function upload(userNum) {
-//     userBord
+//     if (userNum) {
+//       setUserBord(value =>{
+//         return {
+//           ...value,
+
+//         }
+//       })
+//     }
 //   }
 
 //   return (
 //     <div>
 //       <h1>게시판</h1>
-//       <div className='listTable'>
-//         <form>
-//           <label>
+//       <form>
+//         <label>
+//           <div className='listTable'>
 //             <li><div>1</div><div>괴롭히기</div><div>박성연</div></li>
-//           </label>
-//         </form>
-//       </div>
+//           </div>
+//         </label>
+//       </form>
 //       <div>
 //         사용자<input
 //           className="regidentUser"
 //           type="text"
+//           onChange={inputUserValue}
 //           placeholder='한글로만 입력해라'
 //         />
 //       </div>
@@ -88,6 +86,7 @@ export default function App() {
 //         제목<input
 //           className="title"
 //           type="text"
+//           onChange={inputUserValue}
 //           placeholder='제목은 파격적으로'
 //         />
 //       </div>
