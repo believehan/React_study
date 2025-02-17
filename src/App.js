@@ -1,115 +1,34 @@
-import React, { useReducer } from 'react';
-import reducer from './subModule/reducer';
-import Plus from './subModule/Plus';
-import Minus from './subModule/Minus';
+import { useState } from 'react';
+import './App.css';
+import ContentLists from './subModule/ContentLists';
+import InputUserInfo from './subModule/InputUserInfo';
 
-export const RefDispatch = React.createContext();
-const initData = 0;
+// 게시판의 등록번호는 고유해야함에 주의. 즉, 삭제된 번호는 다시 생성 불가.
+function App() {
+   const [userList, setUserList] = useState([      // 실제 데이터 저장을 위한 상태값.
+      {
+         serialNum: 1,
+         userName: '박성연',
+         subject: '괴롭히기',
+         content: '이 바보들아 왜 말을 안들어!!',
+      },
+      {
+         serialNum: 2,
+         userName: '김호준',
+         subject: '괴물만들기',
+         content: '야 ~ 밥목고 하자 ~',
+      },
+   ]);
 
-export default function App() {
-   const [state, dispatch] = useReducer(reducer, initData);
-
-   /* 
-      상태관리를 위한 Reducer 의 dispatch 메서드의 참조를 전역 데이터 참조로 전달.
-   */
    return (
-      <RefDispatch.Provider value={dispatch}>
-         <h1>num : {state}</h1>
-         <Plus />
-         <Minus />
-      </RefDispatch.Provider>
+      <div id='noticeboard'>
+         <h1>게시판</h1>
+         <ContentLists userList={userList} />
+         <InputUserInfo
+            setUserList={setUserList}
+         />
+      </div>
    );
 }
 
-
-
-// import './App.css'
-// import { useState } from 'react';
-// export default function App() {
-//   const [userBord, setUserBord] = useState(
-//     [
-//       {
-//         userNum: 'st_' + 1,
-//         userTitle: '괴롭히기',
-//         userName: '박성연',
-
-//       },
-//       {
-//         userNum: 'st_' + 2,
-//         userTitle: '괴롭히기',
-//         userName: '박성연',
-//       },
-
-//     ]
-//   ),
-//     { userNum, userTitle, userName } = userBord;
-
-//   function inputUserValue(e) {
-//     setUserBord({
-//       ...userBord,
-//       userNum: e.target.value,
-//     });
-//   }
-
-
-//   function upload(userNum) {
-//     if (userNum) {
-//       setUserBord(value =>{
-//         return {
-//           ...value,
-
-//         }
-//       })
-//     }
-//   }
-
-//   return (
-//     <div>
-//       <h1>게시판</h1>
-//       <form>
-//         <label>
-//           <div className='listTable'>
-//             <li><div>1</div><div>괴롭히기</div><div>박성연</div></li>
-//           </div>
-//         </label>
-//       </form>
-//       <div>
-//         사용자<input
-//           className="regidentUser"
-//           type="text"
-//           onChange={inputUserValue}
-//           placeholder='한글로만 입력해라'
-//         />
-//       </div>
-
-//       <div>
-//         제목<input
-//           className="title"
-//           type="text"
-//           onChange={inputUserValue}
-//           placeholder='제목은 파격적으로'
-//         />
-//       </div>
-
-//       <div className='content'>
-//         글쓰기
-//         <div className='regidentUser'>
-//           <textarea cols="30" rows="10" placeholder='이쁘게 쓰시오...'></textarea>
-//         </div>
-//       </div>
-//       <button onClick={upload}>등록</button>
-
-//       <div className='delSerialNum'>
-//         삭제 등록번호
-//         <div>
-//           <input
-//             type="text"
-//             placeholder='삭제할 등록번호 입력해봐라'
-//           />
-//         </div>
-//         <button>삭제</button>
-//       </div>
-
-//     </div>
-//   );
-// }
+export default App;
