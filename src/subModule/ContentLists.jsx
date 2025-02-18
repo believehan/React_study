@@ -19,8 +19,8 @@ export default function ContentLists({ userList }) {
             {
                 userList.map(user =>
                     <EachList
-                        key={'sn' + user.serialNum}
-                        user={user}
+                        key={'sn' + user.serialNum} // 고유한 키값을 만들기위해 문자열을 사용
+                        user={user} 
                     />
                 )
             }
