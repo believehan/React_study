@@ -1052,6 +1052,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.17.8":
+  version "7.26.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.9.tgz#aa4c6facc65b9cb3f87d75125ffd47781b475433"
+  integrity sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.25.9", "@babel/template@^7.26.8", "@babel/template@^7.3.3":
   version "7.26.8"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.26.8.tgz#db3898f47a17bab2f4c78ec1d0de38527c2ffe19"
@@ -7231,6 +7238,13 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+polished@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.3.1.tgz#5a00ae32715609f83d89f6f31d0f0261c6170548"
+  integrity sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==
+  dependencies:
+    "@babel/runtime" "^7.17.8"
 
 possible-typed-array-names@^1.0.0:
   version "1.1.0"
