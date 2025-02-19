@@ -17,7 +17,7 @@ export default function InputUserInfo({ setUserList, inputData, errMessage, setE
         e.preventDefault();
 
         switch (e.target.name) {
-            case 'regidentBtn':
+            case 'regidentBtn': //등록
                 if (userName && subject && content) {
                     setUserList(userList => [
                         {
@@ -35,7 +35,7 @@ export default function InputUserInfo({ setUserList, inputData, errMessage, setE
                 }
                 break;
 
-            case 'editUserBtn':
+            case 'editUserBtn': //수정
                 setUserList(userList =>
                     userList.map(user => {
                         if (user.serialNum === inputData.inputSerialNum) {
@@ -59,7 +59,7 @@ export default function InputUserInfo({ setUserList, inputData, errMessage, setE
 
                 break;
 
-            case 'cancelBtn':
+            case 'cancelBtn': //취소
                 /* 
                     '취소' 버튼을 눌렀을 때에는 입력상자만 비우는 처리만 필요하므로
                     아래의 업데이트 코드가 필요치 않음. 하지만 리렌더링을 하지 않으면
