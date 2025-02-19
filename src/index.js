@@ -1,7 +1,7 @@
 import React from "react"; //안써도 됨
 import ReactDOM from 'react-dom/client';
 import App from "./App";
-import { BrowserRouter } from 'react-router-dom'; //이거 추가하고
+// import { BrowserRouter } from 'react-router-dom'; //이거 추가하고
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

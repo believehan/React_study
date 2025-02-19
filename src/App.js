@@ -1,57 +1,59 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './Header';
-import Main from './Main';
-import Product1 from './Product1';
-import Product2 from './Product2';
-import NotFound from './NotFound';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
-   const helpText = '도움말'; //element요소로 페이지 생성됨
-   function help() {
-      return (
-         <div>
-            <h1>도움말</h1>
+    const [resultMessage, setResultMessage] = useState(''),
+        [queryData, setQueryData] = useState({});
+
+    useEffect(() => {
+        async function getClientData() {
+            try {
+                const getData = await axios.get('http://localhost:3001/clientData/1');
+
+                setQueryData(getData.data);
+                setResultMessage('데이터가 정상적으로 로드되었습니다.');
+            } catch (err) {
+                setResultMessage('경로 정보가 잘못되었거나 수신중에 오류가 발생되었습니다.');
+            }
+        }
+
+        getClientData();
+    }, []);
+
+    async function delClientData() {
+        const idsToDelete = [1, 3];
+
+        /* 
+            forEach 는 비동기 요청을 병렬로 실행하지만, for...of 는 순차 실행을 보장.
+        */
+        for (const i of idsToDelete) {
+            try {
+                const delData = await axios.delete(`http://localhost:3001/clientData/${i}`);
+
+                setQueryData(delData.data);
+                setResultMessage('데이터가 정상적으로 삭제 되었습니다.');
+            } catch (err) {
+                setResultMessage('경로 정보가 잘못되었거나 수신중에 오류가 발생되었습니다.');
+            }
+        }
+    }
+
+    return (
+        <>
+            <div>{resultMessage}</div>
+            <hr />
+
+            <div>고객명 : {queryData.name}</div>
+            <div>고객번호 : {queryData.clientNumber}</div>
+            <div>고객주소 : {queryData.address}</div>
+            {queryData.phone && <div>연락처 : {queryData.phone}</div>}
+            <hr />
+
             <div>
-               <p> 무엇을 도와드릴까요?</p>
-               <form>
-                  <select>
-                     <option value="0">한식</option>
-                     <option value="1">중식</option>
-                     <option value="2">일식</option>
-                  </select>
-               </form>
+                <button onClick={delClientData}>고객 데이터 삭제</button>
             </div>
-         </div>
-      )
-   }
-
-   return (
-      <div className='App'>
-         <BrowserRouter>
-            <Header />
-
-            <Routes>
-
-               {/* 
-                  element 속성을 이용하므로써 라우트 대상을 컴포넌트 형태로
-                  지정해야하며, 그에 따라 별도의 프롭스 전달도 가능.
-               */}
-               <Route path="/" element={<Main />} ></Route>
-
-               <Route path="/Product1" element={<Product1 helpText={helpText} />}></Route>
-               <Route path="/Product2" element={<Product2 helpText={helpText} />}></Route>
-
-               {/* 
-                  element 속성을 이용하므로써 아래와 같이 직접 HTML 요소도 직접 지정 가능.
-               */}
-               <Route path="/Help" element={help()} ></Route>
-
-               <Route path="*" element={<NotFound />}></Route>
-            </Routes>
-         </BrowserRouter>
-      </div>
-   );
-};
+        </>
+    );
+}
 
 export default App;
