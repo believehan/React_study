@@ -23,7 +23,7 @@ export default function ContentLists({ userList, getLoadList }) {
                 userList.map(user =>
                     <li
                         className="eachList"
-                        key={'sn' + user.serialNum}
+                        key={'sn' + user.serialNum}/* 고유키를 가지기 위해 sn붙임 */
                         onClick={(e) => loadList(e, user)}
                     >
                         {/*
