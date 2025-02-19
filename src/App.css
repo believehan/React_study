@@ -60,7 +60,7 @@ form label,
 }
 
 .errMessage {
-  display: none;
+  display:none;
 }
 
 .errMessage.visible {
