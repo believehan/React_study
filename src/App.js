@@ -1,35 +1,23 @@
-function App() {
-  function transData(e) {
-      e.preventDefault();
+import axios from 'axios';
 
-      const { dataTrans } = document;
+export default function App() {
+   async function getServletData() {
+      const pubDelData = {
+         pubTrueId_: [54, 53],
+         pubFalseId_: [52, 51],
+         pudDelBtn: 'batchPubBtn',
+      };
 
-      dataTrans.action = `${process.env.REACT_APP_API_URL}test4`;
-      dataTrans.submit();
-  }
+      const servletData = await axios.post(`${process.env.REACT_APP_API_URL}view/admin/notice/list`, pubDelData);
 
-  return (
+      console.log(servletData.data);
+   }
+
+   return (
       <>
-          <h1>필터를 이용한 한글 설정과 CORS 설정</h1>
-          <hr />
-
-          <form name="dataTrans" method="post">
-              <div>
-                  <div>
-                      {/* 
-                   리액트에서는 label 에 for 가 아닌, htmlFor 속성을 적용해야함에 주의.
-                */}
-                      <label htmlFor="content">전송 내용 입력 :</label>
-                  </div>
-
-                  <textarea rows="20" cols="100" name="content" id="content"></textarea>
-              </div>
-
-              <button name="submitBtn" onClick={transData}>전송</button>
-          </form>
+         <h1>React 와 스프링 CORS 필터 설정 테스트</h1>
+         <button onClick={getServletData}>테스트</button>
+         <hr />
       </>
-
-  );
+   );
 }
-
-export default App;
